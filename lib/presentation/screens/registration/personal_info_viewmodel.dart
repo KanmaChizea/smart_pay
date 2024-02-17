@@ -28,13 +28,14 @@ class PersonalInfoViewState {
 
 class PersonalInfoViewModel
     extends Cubit<ViewModelState<PersonalInfoViewState>> {
-  PersonalInfoViewModel()
-      : super(
+  PersonalInfoViewModel([GlobalKey<FormState>? testFormKey])
+      : formKey = testFormKey ?? GlobalKey(),
+        super(
           ViewModelState.init(
             PersonalInfoViewState(isBottomSheetOpen: false),
           ),
         );
-  GlobalKey<FormState> formKey = GlobalKey();
+  GlobalKey<FormState> formKey;
 
   final _authService = sl.get<IAuthService>();
   final _navigator = sl.get<NavigationService>();
@@ -59,7 +60,7 @@ class PersonalInfoViewModel
     onChangeText(controller.text, 2);
   }
 
-  void submit(
+  Future<void> submit(
       {required String fullname,
       required String username,
       required String password,

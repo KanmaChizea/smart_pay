@@ -4,9 +4,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:smart_pay/presentation/widgets/country/country_cubit.dart';
 import 'package:smart_pay/services/country_service.dart';
 
-import 'mocked_data.dart';
-
-class MockCountryService extends Mock implements ICountryService {}
+import 'utils/mocked_classes.dart';
+import 'utils/mocked_data.dart';
 
 void main() {
   group('Country cubit', () {

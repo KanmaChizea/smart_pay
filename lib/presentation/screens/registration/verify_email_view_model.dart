@@ -40,7 +40,7 @@ class VerifyEmailViewModel extends Cubit<ViewModelState<int>> {
     }
   }
 
-  void submit(String email, String code) async {
+  Future<void> submit(String email, String code) async {
     if (!state.loading) {
       emit(state.setLoading());
       try {

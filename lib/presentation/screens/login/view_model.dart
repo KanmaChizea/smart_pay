@@ -7,16 +7,17 @@ import 'package:smart_pay/navigation/navigation_service.dart';
 import 'package:smart_pay/services/auth_service.dart';
 
 class LoginViewModel extends Cubit<ViewModelState<void>> {
-  LoginViewModel(UserCubit userCubit)
+  LoginViewModel(UserCubit userCubit, [GlobalKey<FormState>? testFormKey])
       : _userCubit = userCubit,
+        formKey = testFormKey ?? GlobalKey(),
         super(ViewModelState.init(null));
 
-  GlobalKey<FormState> formKey = GlobalKey();
+  GlobalKey<FormState> formKey;
   final UserCubit _userCubit;
   final _authService = sl.get<IAuthService>();
   final _navigator = sl.get<NavigationService>();
 
-  void submit(String email, String password) async {
+  Future<void> submit(String email, String password) async {
     if (!state.loading && formKey.currentState!.validate()) {
       emit(state.setLoading());
       try {
