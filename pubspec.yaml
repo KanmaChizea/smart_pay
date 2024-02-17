@@ -15,6 +15,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.4
+  flutter_secure_storage: ^9.0.0
   flutter_svg: ^2.0.9
   get_it: ^7.6.7
   pinput: ^4.0.0

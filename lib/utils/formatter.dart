@@ -1,4 +1,8 @@
+/// Helper class to carry out common formatting and parsing used in application
 class Formatter {
+  /// [count]- how many letters to leave unhashed at the beginning.
+  /// Defaults to 0
+  ///
   static hashEmail(String email, [int count = 0]) {
     // find the index of the "@" symbol
     final atIndex = email.indexOf('@') - count;

@@ -17,6 +17,7 @@ abstract class IAuthService {
       required String email,
       required String country,
       required String password});
+  Future logout();
 }
 
 class AuthService implements IAuthService {
@@ -72,5 +73,10 @@ class AuthService implements IAuthService {
     });
     final user = User.fromMap(response.data['data']['user']);
     return NetworkResponse.fromMap(response.data, user);
+  }
+
+  @override
+  Future logout() async {
+    await _dio.post(Endpoints.logout);
   }
 }
