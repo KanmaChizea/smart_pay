@@ -18,10 +18,15 @@ class PagerIndicator extends StatelessWidget {
             width: i == currentPage ? 32 : 6,
             margin: const EdgeInsets.fromLTRB(2, 16, 2, 36),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(36),
-                color: i == currentPage
-                    ? AppColors.grey.shade900
-                    : AppColors.grey.shade200),
+              borderRadius: BorderRadius.circular(36),
+              color: i == currentPage
+                  ? (Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : AppColors.grey.shade900)
+                  : (Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey
+                      : AppColors.grey.shade200),
+            ),
           )
       ],
     );

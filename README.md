@@ -5,6 +5,7 @@
 - Responsive Design: The application is designed to provide a seamless user experience across various screen sizes and orientations.
 - Error Handling: The `dio_helper.dart` file efficiently manages API requests and displays user-friendly error dialogs when issues occur.
 - Minimalistic Animations: Minimalistic animations are incorporated to enhance the user interface and provide subtle visual feedback.
+- Dark Theme Support
 
 ## Dependencies Used
 

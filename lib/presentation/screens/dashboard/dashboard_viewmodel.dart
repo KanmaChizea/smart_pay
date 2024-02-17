@@ -26,7 +26,8 @@ class DashboardViewModal extends Cubit<ViewModelState<String>> {
     emit(state.setButtonEnabled(false));
     try {
       await _authService.logout();
-      _navigator.resetWith('/login');
+      _navigator.resetWith('/');
+      _navigator.navigate('/login');
     } catch (e) {
       emit(state.setLoading(false));
       emit(state.setButtonEnabled(true));

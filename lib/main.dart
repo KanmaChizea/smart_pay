@@ -4,7 +4,7 @@ import 'package:smart_pay/core/cubits/user_cubit.dart';
 import 'package:smart_pay/navigation/routes.dart';
 import 'package:smart_pay/presentation/widgets/country/country_cubit.dart';
 import 'package:smart_pay/theme/theme.dart';
-import 'package:smart_pay/theme/theme_cubit.dart';
+import 'package:smart_pay/core/cubits/theme_cubit.dart';
 import 'core/dependency_injection/injection_container.dart' as di;
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

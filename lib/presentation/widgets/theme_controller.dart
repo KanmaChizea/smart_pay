@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_pay/theme/colors.dart';
-import 'package:smart_pay/theme/theme_cubit.dart';
+import 'package:smart_pay/core/cubits/theme_cubit.dart';
 
 class ThemeController extends StatelessWidget {
   const ThemeController({super.key});
