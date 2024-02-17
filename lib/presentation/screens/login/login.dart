@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_pay/core/cubits/user_cubit.dart';
 import 'package:smart_pay/presentation/screens/login/view_model.dart';
 import 'package:smart_pay/presentation/widgets/appbar.dart';
 import 'package:smart_pay/presentation/widgets/forms/login_form.dart';
@@ -14,7 +15,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginViewModel(),
+      create: (context) => LoginViewModel(context.read<UserCubit>()),
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: CustomAppbar(),

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_pay/core/dependency_injection/injection_container.dart';
 
-import 'package:smart_pay/main.dart';
 import 'package:smart_pay/models/country.dart';
 import 'package:smart_pay/models/viewmodel_state.dart';
+import 'package:smart_pay/navigation/navigation_service.dart';
 import 'package:smart_pay/services/auth_service.dart';
 
 class PersonalInfoViewState {
@@ -37,7 +37,7 @@ class PersonalInfoViewModel
   GlobalKey<FormState> formKey = GlobalKey();
 
   final _authService = sl.get<IAuthService>();
-
+  final _navigator = sl.get<NavigationService>();
   List<bool> validFields = [false, false, false, false];
 
   void openBottomSheet() {
@@ -54,7 +54,7 @@ class PersonalInfoViewModel
         state.data.copyWith(isBottomSheetOpen: false, selectedCountry: country),
       ),
     );
-    navigatorKey.currentState?.pop();
+    _navigator.goBack();
     controller.text = country.name;
     onChangeText(controller.text, 2);
   }
@@ -74,8 +74,7 @@ class PersonalInfoViewModel
             country: state.data.selectedCountry?.code ?? '',
             password: password);
         emit(state.setLoading(false));
-        navigatorKey.currentState?.pushNamedAndRemoveUntil(
-            '/set_pin', (route) => route.settings.name == '/login',
+        _navigator.navigateAndPopUntil('/login', '/set_pin',
             arguments: result.data.fullname.split(' ').length > 1
                 ? result.data.fullname.split(' ')[0]
                 : result.data.fullname);

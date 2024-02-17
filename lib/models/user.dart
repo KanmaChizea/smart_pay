@@ -29,4 +29,7 @@ class User {
         phone: map['phone'],
         phoneCountry: map['phone_country']);
   }
+
+  String get firstName =>
+      fullname.split(' ').isEmpty ? fullname : fullname.split(' ')[0];
 }

@@ -64,7 +64,6 @@ abstract class AppRouter {
               email: settings.arguments as String,
             ),
         '/new_password': (_) => const CreateNewPassword(),
-        '/dashboard': (_) =>
-            Dashboard(secretMessage: settings.arguments as String)
+        '/dashboard': (_) => const Dashboard()
       };
 }

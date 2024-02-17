@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_pay/core/dependency_injection/injection_container.dart';
-import 'package:smart_pay/main.dart';
 import 'package:smart_pay/models/viewmodel_state.dart';
+import 'package:smart_pay/navigation/navigation_service.dart';
 import 'package:smart_pay/services/auth_service.dart';
 
 //state represents the timer
@@ -17,6 +17,8 @@ class VerifyEmailViewModel extends Cubit<ViewModelState<int>> {
     });
   }
   final _authService = sl.get<IAuthService>();
+  final _navigator = sl.get<NavigationService>();
+
   void resendCode() async {
     emit(state.setData(30));
     Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -43,8 +45,7 @@ class VerifyEmailViewModel extends Cubit<ViewModelState<int>> {
       emit(state.setLoading());
       try {
         final response = await _authService.verifyEmail(email, code);
-        navigatorKey.currentState
-            ?.pushNamed('/personal_info', arguments: response.data);
+        _navigator.navigate('/personal_info', arguments: response.data);
         emit(state.setLoading(false));
       } catch (_) {
         emit(state.setLoading(false));

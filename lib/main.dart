@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_pay/core/cubits/user_cubit.dart';
 import 'package:smart_pay/navigation/routes.dart';
 import 'package:smart_pay/presentation/widgets/country/country_cubit.dart';
 import 'package:smart_pay/theme/theme.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => ThemeCubit(),
         ),
+        BlocProvider(create: (_) => UserCubit())
       ],
       child: Builder(builder: (context) {
         return MaterialApp(

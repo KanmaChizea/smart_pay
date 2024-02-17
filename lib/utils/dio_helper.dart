@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_pay/core/dependency_injection/injection_container.dart';
 import 'package:smart_pay/main.dart';
 
 import 'package:smart_pay/presentation/widgets/error_dialog.dart';
+import 'package:smart_pay/services/secure_storage.dart';
 
 /// Dio singleton for the entire application
 ///
@@ -28,8 +30,13 @@ class DioHelper {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          // add bearer token
-
+          final secureStorage = sl.get<SecureStorageHelper>();
+          final token = await secureStorage.read('token');
+          if (token != null) {
+            options.headers.addAll({
+              'Authorization': 'Bearer $token',
+            });
+          }
           return handler.next(options);
         },
         onResponse: (response, handler) {

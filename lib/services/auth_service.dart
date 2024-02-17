@@ -6,6 +6,7 @@ import 'package:smart_pay/core/constants/endpoints.dart';
 import 'package:smart_pay/core/dependency_injection/injection_container.dart';
 import 'package:smart_pay/models/network_response.dart';
 import 'package:smart_pay/models/user.dart';
+import 'package:smart_pay/services/secure_storage.dart';
 
 abstract class IAuthService {
   Future<NetworkResponse<User>> login(String email, String password);
@@ -22,6 +23,7 @@ abstract class IAuthService {
 
 class AuthService implements IAuthService {
   final Dio _dio = sl.get<Dio>();
+  final _secureStorage = sl.get<SecureStorageHelper>();
 
   @override
   Future getEmailToken(String email) async {
@@ -71,6 +73,8 @@ class AuthService implements IAuthService {
       'password': password,
       'device_name': deviceName,
     });
+
+    await _secureStorage.write('token', response.data['data']['token']);
     final user = User.fromMap(response.data['data']['user']);
     return NetworkResponse.fromMap(response.data, user);
   }
@@ -78,5 +82,6 @@ class AuthService implements IAuthService {
   @override
   Future logout() async {
     await _dio.post(Endpoints.logout);
+    await _secureStorage.delete('token');
   }
 }

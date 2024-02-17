@@ -1,10 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_pay/main.dart';
+import 'package:smart_pay/core/dependency_injection/injection_container.dart';
+import 'package:smart_pay/navigation/navigation_service.dart';
 
 //state determines the current page of onboarding carousel
 class OnboardingViewModel extends Cubit<int> {
   OnboardingViewModel() : super(0);
-
+  final _navigator = sl.get<NavigationService>();
   final List<({String imageUrl, String title, String text})> content = [
     (
       imageUrl: 'lib/assets/images/onboarding_1.png',
@@ -21,7 +22,7 @@ class OnboardingViewModel extends Cubit<int> {
   ];
 
   void goToLogin() {
-    navigatorKey.currentState!.pushNamed('/login');
+    _navigator.navigate('/login');
   }
 
   void updatePage(int index) => emit(index);
