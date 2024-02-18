@@ -21,9 +21,9 @@
 
 You can test the app online using [appetize.io](https://appetize.io/). Click the following link to access the online emulator:
 
-[Open Appetize.io Emulator](https://)
+[Open Appetize.io Emulator](https://appetize.io/app/7z3bopxxohozmtejvinstpsey4)
 
 ## Download APK
 
-To manually install the app on an Android device or emulator, you can download the APK file [here](https://)
+To manually install the app on an Android device or emulator, you can download the APK file [here](https://drive.google.com/file/d/1t5AJMAEKgkshUQTgGmgaVJ4aJFjGx6WT/view?usp=sharing)
 
