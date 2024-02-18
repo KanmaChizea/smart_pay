@@ -43,8 +43,8 @@ class DioHelper {
           return handler.next(response);
         },
         onError: (DioException e, handler) {
-          //TODO: handle error message
-          final errorMessage = e.response?.data['message'];
+          final errorMessage =
+              e.response?.data['message'] ?? 'Something went wrong';
           showDialog(
             barrierDismissible: false,
             context: navigatorKey.currentContext!,

@@ -45,7 +45,7 @@ class Dashboard extends StatelessWidget {
                       ),
                     AppSpacing.space(24),
                     Text(
-                      'Welcome ${context.watch<UserCubit>().state?.firstName},',
+                      'Welcome ${context.watch<UserCubit>().state?.firstName}!',
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     Expanded(
