@@ -13,17 +13,13 @@ void main() {
     late InitiateRegistrationViewModel sut;
     late MockAuthService authService;
     late MockNavigationService navigationService;
-    late MockFormState formState;
-    late MockFormKey formKey;
 
     setUp(() {
       navigationService = MockNavigationService();
       authService = MockAuthService();
       sl.registerLazySingleton<NavigationService>(() => navigationService);
       sl.registerLazySingleton<IAuthService>(() => authService);
-      formState = MockFormState();
-      formKey = MockFormKey();
-      sut = InitiateRegistrationViewModel(formKey);
+      sut = InitiateRegistrationViewModel();
     });
 
     tearDown(() {
@@ -41,8 +37,6 @@ void main() {
     });
 
     test('should navigate to verify email on sucessful request', () async {
-      when(() => formState.validate()).thenReturn(true);
-      when(() => formKey.currentState).thenReturn(formState);
       when(() => authService.getEmailToken('email')).thenAnswer((_) async =>
           NetworkResponse(status: true, message: 'message', data: ''));
       when(() =>
@@ -56,8 +50,6 @@ void main() {
           .called(1);
     });
     test('should not navigate to verify email on failed request', () async {
-      when(() => formState.validate()).thenReturn(true);
-      when(() => formKey.currentState).thenReturn(formState);
       when(() => authService.getEmailToken('email')).thenThrow(Error());
 
       await sut.submit('email');

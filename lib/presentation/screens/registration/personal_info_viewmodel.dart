@@ -28,14 +28,12 @@ class PersonalInfoViewState {
 
 class PersonalInfoViewModel
     extends Cubit<ViewModelState<PersonalInfoViewState>> {
-  PersonalInfoViewModel([GlobalKey<FormState>? testFormKey])
-      : formKey = testFormKey ?? GlobalKey(),
-        super(
+  PersonalInfoViewModel()
+      : super(
           ViewModelState.init(
             PersonalInfoViewState(isBottomSheetOpen: false),
           ),
         );
-  GlobalKey<FormState> formKey;
 
   final _authService = sl.get<IAuthService>();
   final _navigator = sl.get<NavigationService>();
@@ -65,7 +63,7 @@ class PersonalInfoViewModel
       required String username,
       required String password,
       required String email}) async {
-    if (!state.loading && formKey.currentState!.validate()) {
+    if (!state.loading) {
       emit(state.setLoading());
       try {
         final result = await _authService.register(

@@ -18,6 +18,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -36,7 +37,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: context.read<LoginViewModel>().formKey,
+      key: _formKey,
       child: BlocBuilder<LoginViewModel, ViewModelState<void>>(
         builder: (context, state) {
           return Column(
@@ -59,6 +60,7 @@ class _LoginFormState extends State<LoginForm> {
               AppSpacing.space(24),
               ElevatedButton(
                 onPressed: () {
+                  if (!_formKey.currentState!.validate()) return;
                   context
                       .read<LoginViewModel>()
                       .submit(emailController.text, passwordController.text);

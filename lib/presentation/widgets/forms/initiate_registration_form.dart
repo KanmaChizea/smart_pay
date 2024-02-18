@@ -17,6 +17,7 @@ class InitiateRegistrationForm extends StatefulWidget {
 
 class _InitiateRegistrationFormState extends State<InitiateRegistrationForm> {
   late TextEditingController controller;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -36,7 +37,7 @@ class _InitiateRegistrationFormState extends State<InitiateRegistrationForm> {
       builder: (context, state) {
         final viewModel = context.read<InitiateRegistrationViewModel>();
         return Form(
-          key: viewModel.formKey,
+          key: _formKey,
           child: Column(
             children: [
               InputField(
@@ -48,7 +49,10 @@ class _InitiateRegistrationFormState extends State<InitiateRegistrationForm> {
               ),
               ElevatedButton(
                 onPressed: state.buttonEnabled
-                    ? () => viewModel.submit(controller.text)
+                    ? () {
+                        if (!_formKey.currentState!.validate()) return;
+                        viewModel.submit(controller.text);
+                      }
                     : null,
                 child: const Text('Sign up'),
               ).withLoader(state.loading)

@@ -16,8 +16,6 @@ void main() {
     late MockAuthService authService;
     late MockNavigationService navigationService;
     late MockUserCubit userCubit;
-    late MockFormState formState;
-    late MockFormKey formKey;
 
     setUp(() {
       navigationService = MockNavigationService();
@@ -26,9 +24,7 @@ void main() {
       sl.registerLazySingleton<NavigationService>(() => navigationService);
       sl.registerLazySingleton<IAuthService>(() => authService);
       userCubit = MockUserCubit();
-      formState = MockFormState();
-      formKey = MockFormKey();
-      sut = LoginViewModel(userCubit, formKey);
+      sut = LoginViewModel(userCubit);
     });
 
     tearDown(() {
@@ -38,8 +34,7 @@ void main() {
 
     test('should navigate to new screen on successful login', () async {
       //arrange
-      when(() => formState.validate()).thenReturn(true);
-      when(() => formKey.currentState).thenReturn(formState);
+
       when(() => authService.login('email', 'password')).thenAnswer((_) async =>
           NetworkResponse(
               status: true, message: 'message', data: MockedData.user));
@@ -52,23 +47,11 @@ void main() {
       verify(() => navigationService.resetWith('/dashboard')).called(1);
     });
     test('should not navigate to new screen on failed login', () async {
-      when(() => formState.validate()).thenReturn(false);
-      when(() => formKey.currentState).thenReturn(formState);
       when(() => authService.login('email', 'password')).thenThrow(Error());
 
       await sut.submit('email', 'password');
 
       verifyNever(() => navigationService.resetWith('/dashboard'));
-    });
-
-    test('should not login if form is invalid', () async {
-      when(() => formState.validate()).thenReturn(false);
-      when(() => formKey.currentState).thenReturn(formState);
-      when(() => authService.login('email', 'password')).thenThrow(Error());
-
-      await sut.submit('email', 'password');
-
-      verifyNever(() => authService.login('email', 'password'));
     });
   });
 }

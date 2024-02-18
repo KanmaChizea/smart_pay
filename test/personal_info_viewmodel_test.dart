@@ -14,17 +14,13 @@ void main() {
   late PersonalInfoViewModel sut;
   late MockAuthService authService;
   late MockNavigationService navigator;
-  late MockFormState formState;
-  late MockFormKey formKey;
 
   setUp(() {
     navigator = MockNavigationService();
     authService = MockAuthService();
     sl.registerLazySingleton<NavigationService>(() => navigator);
     sl.registerLazySingleton<IAuthService>(() => authService);
-    formState = MockFormState();
-    formKey = MockFormKey();
-    sut = PersonalInfoViewModel(formKey);
+    sut = PersonalInfoViewModel();
   });
 
   tearDown(() {
@@ -63,8 +59,6 @@ void main() {
     expect(sut.state.buttonEnabled, false);
   });
   test('should register user and navigate to pin setup on sucess', () async {
-    when(() => formState.validate()).thenReturn(true);
-    when(() => formKey.currentState).thenReturn(formState);
     when(() => authService.register(
             fullname: 'fullname',
             username: 'username',

@@ -21,6 +21,7 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
   late TextEditingController usernameController;
   late TextEditingController countryController;
   late TextEditingController passwordController;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -67,7 +68,7 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
       builder: (context, state) {
         final viewModel = context.read<PersonalInfoViewModel>();
         return Form(
-          key: viewModel.formKey,
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -108,11 +109,14 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
               ),
               ElevatedButton(
                 onPressed: state.buttonEnabled
-                    ? () => viewModel.submit(
-                        email: widget.email,
-                        fullname: fullnameController.text,
-                        username: usernameController.text,
-                        password: passwordController.text)
+                    ? () {
+                        if (!_formKey.currentState!.validate()) return;
+                        viewModel.submit(
+                            email: widget.email,
+                            fullname: fullnameController.text,
+                            username: usernameController.text,
+                            password: passwordController.text);
+                      }
                     : null,
                 child: const Text('Contine'),
               ).withLoader(state.loading)

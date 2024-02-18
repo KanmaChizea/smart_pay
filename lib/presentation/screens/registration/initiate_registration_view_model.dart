@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_pay/core/dependency_injection/injection_container.dart';
 import 'package:smart_pay/models/viewmodel_state.dart';
@@ -6,11 +5,8 @@ import 'package:smart_pay/navigation/navigation_service.dart';
 import 'package:smart_pay/services/auth_service.dart';
 
 class InitiateRegistrationViewModel extends Cubit<ViewModelState<void>> {
-  InitiateRegistrationViewModel([GlobalKey<FormState>? testFormKey])
-      : formKey = testFormKey ?? GlobalKey(),
-        super(ViewModelState.init(null));
+  InitiateRegistrationViewModel() : super(ViewModelState.init(null));
   final _authService = sl.get<IAuthService>();
-  GlobalKey<FormState> formKey;
   final _navigator = sl.get<NavigationService>();
 
   void goBack() => _navigator.goBack();
@@ -25,7 +21,7 @@ class InitiateRegistrationViewModel extends Cubit<ViewModelState<void>> {
   }
 
   Future<void> submit(String email) async {
-    if (!state.loading && formKey.currentState!.validate()) {
+    if (!state.loading) {
       emit(state.setLoading());
       try {
         await _authService.getEmailToken(email);

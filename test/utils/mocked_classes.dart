@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smart_pay/core/cubits/theme_cubit.dart';
 import 'package:smart_pay/core/cubits/user_cubit.dart';
@@ -21,12 +20,3 @@ class MockDashboardService extends Mock implements IDashboardService {}
 class MockNavigationService extends Mock implements NavigationService {}
 
 class MockSecureStorageHelper extends Mock implements SecureStorageHelper {}
-
-class MockFormState extends Mock implements FormState {
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
-    return super.toString();
-  }
-}
-
-class MockFormKey extends Mock implements GlobalKey<FormState> {}
